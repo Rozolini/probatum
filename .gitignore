@@ -1,0 +1,10 @@
+/target/
+**/*.rs.bk
+.idea/
+.vscode/
+
+# cargo-fuzz
+fuzz/corpus/
+fuzz/artifacts/
+fuzz/coverage/
+fuzz/target/

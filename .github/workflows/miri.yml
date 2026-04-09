@@ -1,0 +1,19 @@
+name: Miri
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  miri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: miri
+      - uses: Swatinem/rust-cache@v2
+      - name: Setup miri
+        run: cargo +nightly miri setup
+      - name: Run miri tests
+        run: cargo +nightly miri test -p probatum-vm

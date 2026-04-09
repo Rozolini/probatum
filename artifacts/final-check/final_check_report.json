@@ -1,0 +1,6 @@
+{
+  "prove_verify_ok": true,
+  "tamper_rejected": true,
+  "perf_smoke_ok": true,
+  "verify_failure_code": null
+}

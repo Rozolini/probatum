@@ -1,0 +1,15 @@
+name: Loom
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  loom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Run loom model tests
+        run: cargo test -p probatum-vm --features loom

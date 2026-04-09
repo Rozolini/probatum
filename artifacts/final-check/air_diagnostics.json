@@ -1,0 +1,10 @@
+{
+  "status": "Ok",
+  "reason_code": "ok",
+  "trace_rows": 4,
+  "selector_coverage": {
+    "add_rows": 2,
+    "mul_rows": 1,
+    "halt_rows": 1
+  }
+}

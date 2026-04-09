@@ -1,0 +1,18 @@
+[package]
+name = "probatum-vm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true
+loom = { version = "0.7", optional = true }
+
+[features]
+loom = ["dep:loom"]
+
+[dev-dependencies]
+proptest.workspace = true

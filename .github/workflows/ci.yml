@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Check formatting
+        run: cargo fmt --all --check
+      - name: Run clippy
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      - name: Run tests
+        run: cargo test --workspace --all-targets
+
+  tamper-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Generate baseline proof
+        run: cargo run -p probatum-cli -- prove --out-dir artifacts/current
+      - name: Tamper proof file
+        run: cargo run -p probatum-cli -- tamper-proof --input artifacts/current/proof.bin --output artifacts/current/proof_tampered.bin
+      - name: Ensure tampered proof is rejected
+        run: |
+          if cargo run -p probatum-cli -- verify --proof artifacts/current/proof_tampered.bin; then
+            echo "tamper guard failed: tampered proof verified"
+            exit 1
+          else
+            echo "tamper guard passed"
+          fi
+
+  perf-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Run performance smoke command
+        run: cargo run -p probatum-cli -- perf-smoke --iterations 20 --out artifacts/current/perf_report.json --max-p50-us 2000 --max-p95-us 10000
+
+  release-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build all crates
+        run: cargo build --workspace --all-targets
+      - name: Run release smoke prove/verify
+        run: |
+          cargo run -p probatum-cli -- prove --out-dir artifacts/release-check
+          cargo run -p probatum-cli -- verify --proof artifacts/release-check/proof.bin --report artifacts/release-check/verify_report.json
+      - name: Run release tamper check
+        run: |
+          cargo run -p probatum-cli -- tamper-proof --input artifacts/release-check/proof.bin --output artifacts/release-check/proof_tampered.bin
+          if cargo run -p probatum-cli -- verify --proof artifacts/release-check/proof_tampered.bin --report artifacts/release-check/verify_tampered_report.json; then
+            echo "release tamper check failed"
+            exit 1
+          else
+            echo "release tamper check passed"
+          fi
+
+  final-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Run final one-shot validation
+        run: cargo run -p probatum-cli -- final-check --out-dir artifacts/final-check

@@ -1,0 +1,30 @@
+[package]
+name = "probatum-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+probatum-prover = { path = "../crates/probatum-prover" }
+probatum-verifier = { path = "../crates/probatum-verifier" }
+
+[[bin]]
+name = "decode_proof"
+path = "fuzz_targets/decode_proof.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "verify_detailed"
+path = "fuzz_targets/verify_detailed.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]
+members = ["."]

@@ -1,0 +1,8 @@
+{
+  "status": "fail",
+  "failure_code": {
+    "domain": "verifier",
+    "code": "fri_low_degree_check_failed"
+  },
+  "proof_path": "artifacts/release-check/proof_tampered.bin"
+}

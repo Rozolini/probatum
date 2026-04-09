@@ -1,0 +1,9 @@
+{
+  "artifact_version": "v1",
+  "proof_version": "v4",
+  "vm_version": "v1",
+  "transcript": "60ea043fdabd1c0d136ea146a0450e2dd66b4ba556938a754447a5de283f7b68",
+  "trace_len": 4,
+  "trace_digest": "07e1c01e9bedde303c61af93e8ef7d6b075f2e05dc3d24dc29b3627adb47e5e2",
+  "air_reason_code": "ok"
+}

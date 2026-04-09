@@ -1,0 +1,30 @@
+[package]
+name = "probatum-prover"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+blake3.workspace = true
+probatum-air = { path = "../probatum-air" }
+probatum-arith = { path = "../probatum-arith" }
+probatum-constraints = { path = "../probatum-constraints" }
+probatum-evaluation = { path = "../probatum-evaluation" }
+probatum-field = { path = "../probatum-field" }
+probatum-fri = { path = "../probatum-fri" }
+probatum-transcript = { path = "../probatum-transcript" }
+probatum-trace = { path = "../probatum-trace" }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+proptest.workspace = true
+probatum-trace = { path = "../probatum-trace" }
+
+[[bench]]
+name = "integrated_prove"
+harness = false

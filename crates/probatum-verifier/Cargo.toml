@@ -1,0 +1,20 @@
+[package]
+name = "probatum-verifier"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+probatum-fri = { path = "../probatum-fri" }
+probatum-prover = { path = "../probatum-prover" }
+serde.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+probatum-trace = { path = "../probatum-trace" }
+
+[[bench]]
+name = "verify_proof"
+harness = false

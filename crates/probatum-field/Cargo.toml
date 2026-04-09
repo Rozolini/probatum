@@ -1,0 +1,15 @@
+[package]
+name = "probatum-field"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Goldilocks field, polynomials, and radix-2 FFT for STARK pipelines"
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

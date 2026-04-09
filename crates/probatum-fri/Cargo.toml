@@ -1,0 +1,15 @@
+[package]
+name = "probatum-fri"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "FRI folding, Merkle layers, and query verification (phase 10)"
+
+[dependencies]
+blake3.workspace = true
+probatum-evaluation = { path = "../probatum-evaluation" }
+probatum-field = { path = "../probatum-field" }
+serde.workspace = true
+thiserror.workspace = true

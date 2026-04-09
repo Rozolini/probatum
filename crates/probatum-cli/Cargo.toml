@@ -1,0 +1,24 @@
+[package]
+name = "probatum-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+probatum-air = { path = "../probatum-air" }
+probatum-artifacts = { path = "../probatum-artifacts" }
+probatum-prover = { path = "../probatum-prover" }
+probatum-trace = { path = "../probatum-trace" }
+probatum-verifier = { path = "../probatum-verifier" }
+probatum-vm = { path = "../probatum-vm" }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+probatum-artifacts = { path = "../probatum-artifacts" }
+probatum-prover = { path = "../probatum-prover" }
